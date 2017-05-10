@@ -1,0 +1,126 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{amsmath}
+\begin{document}
+
+\section{2-1}
+Although merge sort runs in $\Theta(n*lg(n))$ worst-case time and insertion sort runs in $\Theta(n^2)$ worst-case time, the constant factors in insertion sort can make it faster in practice for small problem sizes on many machines. Thus, it makes sense to coarsen the leaves of the recursion by using insertion sort within merge sort when subproblems become sufficiently small. Consider a modification to merge sort in which $n/k$ sublists of length $k$ are sorted using insertion sort and then merged using the standart merging mechanism, where $k$ is a value to be determined.
+
+a. Show that insertion sort can sort the $n/k$ sublists, each of length $k$, in $/Theta(nk)$ worst-case time.
+
+
+Insertion sort of array length $k$ takes $\Theta(k^2)$ worst-case time.  To sort $n/k$ sublists it takes $n/k*\Theta(k^2) = \Theta(n*k)$ 
+
+
+b. Show how to merge the sublists in $\Theta(n*lg(n/k))$ worst-case time.
+
+Recurrence:
+
+ $T(n) = 
+\begin{cases}
+ 0, & \mbox{if  $n= k$} \\
+ 2T(n/2)+n, & \mbox{if $ n=k*2^m$, for $n > k$} 
+\end{cases}$ 
+
+if $n=k$: $T(k)=0=lg(1)=k*lg(k/k) = \Theta(n*lg(n/k))$
+
+
+if $n=k*2$: $T(k*2)=0+2*k= 2*k +2*lg2 = 2*k*lg(2*k/k) = \Theta(n*lg(n/k))$
+
+
+if $n=m*2$: $T(m*2) = 2*m*lg(m/k)+2m=2m*(lg(m/k)+1)=2m*(lg(m/k)+lg(2))=2m*lg(2m/k)= \Theta(n*lg(n/k))$
+
+c. Given that the modified algorithm runs in $\Theta(n*k + n*lg(n/k))$ worst-case time, what is the largest value of $k$ as a function of $n$ for which the modified algorithm has the same running time as standart merge sort, in terms of $\Theta$-notation.
+
+$k=lg(n)$
+if $k>lg(n)$,  $\Theta(n*k + n*lg(n/k)) > \Theta( n*lg(n))$
+
+d. How should we choose $k$ in practice?
+
+Choose, where insertion sort beat merge sort.
+
+\section{2-2}
+Correctness of bubblesort
+
+Bubblesort is a popular, but inefficient, sorting algorithm. It works by repeatedly swapping adjacent elements that are out of order.
+
+a. Let $A'$ denote the output of BUBBLESORT(A). To prove that BUBBLESORT is correct, we need to prove that if terminates and that
+$A'[1] \le A'[2] \le ... \le A'[n]  $, where n = A.length. In order to show that BUBBLESORT actually sorts, what else do we need to prove?
+
+We need to choose inveriant and proove that it holds.
+
+The next two parts will prove inequality(2.3).
+
+b. State precisely a loop invariant for the for loop in lines 2-4, and prove that this loop invariant holds. Your prove shoult use the structureof the loop invariant proof presented in this chapter.
+
+subarray A[j+1, A.length] does not containt the smallest element.
+
+Initialization: prior the first iteration subarray A[] is empty.
+
+Maintenance: Let us suppuse that A[j+2, A.length] does not contain the smallest element. If $A[j]> A[j+1]$ then swap two elements. So A[j+1, A.length] does not contain max element.
+
+Termination: At termination  subarray A[i+1, A.length] doest not contains the biggest element so A[i] conntains the largest element.
+
+
+c.Using the termination condition of the loop invariant proved int part (b), state a loop invariant for the for loop in lines 1-4 that will allow you to prove inequality(2.3). Your prove should use the structure of the loop invariant proof presented in this section.   
+
+Before each loop exection A[0..i-1] in a sorted state.
+
+Initialization: prior the first iteration subarray A[] is empty.
+
+Maintenance: Let us suppuse that A[1, k-1] in a sorted order. Than on the next iteration biggest element floated from the subarray A[k, A.length].
+
+Termination: At termination  subarray Array[1, A.length] in a sorted order and unsorted subarray is empty. Invariant holds.
+
+d. What is the worst-case running time of bubblesort? How does it compare to the running time of insertion sort?
+
+$T(n)=\Theta(n^2)$
+
+Compare to insertion sort could run slower because of swap quantity.
+
+\section{2-3}
+Correctness of Horner's rule.
+
+a. In the terms of $\Theta$-notation, what is the running time of this code fragment for Horner's rule?
+$T(n)=\Theta(n)$
+
+b. Write pseudocode to implement the naive polynomial-evaluation algorithm that computes each term of the polynomial from scratch. What is the running time of this algorithm? How does it compare to Horner's rule.
+
+\lstinputlisting{2-3/2-3.m}
+$T(n)=\Theta(n^2)$
+
+c. Consider the following loop invariant:
+
+At the start of each iteration of the \textbf{for} loop of lines 2-3, $y=\sum\limits_{k=0}^{n-(i+1)} a_{k+i+1}x^k$
+
+Interpret a summation with no terms as equaling 0. Following the structure of the loop invariant proof presented in this chapter, use this loop invariant to show that, at termination, use this loop invariant to show that, at termination, $y=\sum\limits_{k=0}^{n} a_{k}x^k$
+
+At initialization $i=n$: $y=\sum\limits_{k=0}^{n-(n+1)} a_{k+n+1}x^k = 0$
+
+At termination $i=-1$:  $y=\sum\limits_{k=0}^{n-(-1+1)} a_{k+-1+1}x^k = \sum\limits_{k=0}^{n} a_{k}x^k$
+
+d. Conclude by arguing that the given code fragment correctly evaluates a polynomial characterized by coefficients $a_0, a_1,...a_n$.
+
+Invariant holds.
+
+\section{2-4}
+
+Inversion
+
+Let A[1..n] be an array of n distinct numbers. If $ i < j$ and $A[i] > A[j]$, than the pair (i,j) is called inversion of A.
+
+a. Let the five inversions of the array (2,3,8,6,1) : (1,5), (2, 5), (3, 5), (4,5), (3,4)
+
+b. What array with elements from set (1,2,..,n) has the most inversions? How many does it have?
+
+Reverse sorting array, 
+$n/2*(n-1)$
+
+c. What is the relationship between the running time of insertion sort and the number of inversions in the input array? Justiry your answer.
+
+$\Theta(n+k)$, where k-inversion count.
+
+d. Give an algorithm that determines the number of inversions in any permutatuin on n elements in $\Theta(n lg(n))$ worst-case time. (Hint: Modify merge sort.)
+\lstinputlisting[language=Python]{2-4/2-4.py}
+\end{document}
