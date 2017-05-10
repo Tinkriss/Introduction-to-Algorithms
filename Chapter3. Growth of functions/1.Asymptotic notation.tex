@@ -1,0 +1,97 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{3.1-1} 
+
+Let $f(n)$ and $g(n)$ be asymptotically nonnegative functions. Using the basic definition of $\Theta$-notation, prove that $max(f(n), g(n)) = \Theta(f(n)+g(n))$
+
+if $f(n)$ and $g(n)$ be asymptotically nonnegative functions:
+
+\[ f(n) \le max(f(n), g(n)) \]
+\[ g(n) \le max(f(n), g(n)) \]
+\[ f(n) + g(n)  \le 2*max(f(n), g(n)) \]
+\[ 1/2(f(n) + g(n))  \le max(f(n), g(n)) \le f(n) + g(n)\], 
+so $max(f(n), g(n)) = \Theta(f(n)+g(n))$ 
+
+\section*{3.1-2}
+
+Show that for any real constants $a$ and $b$, where $b>0$,
+\[ (n+a)^b = \Theta(n^b) \]
+ 
+The fastest growing part is $n^b$, so $c_1*n^b \ge (n+a)^b \ge c_2*n^b$, for some $c_1$ and $c_2=a^b$. 
+So,
+\[ (n+a)^b = \Theta(n^b) \]
+
+\section*{3.1-3}
+
+Explane why the statement, "The running time of algorithm A is at least $O(n^2)$," is meaningless.
+
+O- show the upper bound of time. "At least" means lower bound. This concepts contradict each other.
+
+\section*{3.1-4}
+
+Is $2^{n+1}=O(2^n)$? Is $2^{2n} = O(2^n)$?
+
+\[ 2^{n+1} = 2*2^n \], so 
+\[ 2*2^n \le c*2^n\], for $c \ge 2$
+So  $2^{n+1}=O(2^n)$
+
+
+\[ 2^{2n} = 2^n*2^n \]
+\[ 2^n*2^n \le c*2^n \]
+
+$2^n$ is unbounded function, so there is no c bigger than $2^n$ for all n. So  $2^{2n} \ne O(2^n)$
+
+\section*{3.1-5}
+
+Prove Theorem 3.1.
+
+For any two function $f(n)$ and $g(n)$, we have $f(n)=\Theta(g(n))$ if and only if $f(n)=O(g(n))$ and $f(n)=\Omega(g(n))$.
+
+if $g(n)$ is upper bound and lower bound function than $g(n)$ is tight bound. So if $f(n)=O(g(n))$ and $f(n)=\Omega(g(n))$ then $f(n)=\Theta(g(n))$ .
+
+Let us assume $f(n)=\Theta(g(n))$ and there is same $n_k$ $f(n_k)>O(g(n_k))$. But in this case  $\Theta(g(n))$ is not a tight bound. Contradiction.
+Same with $f(n_k)<\Omega(g(n_k))$
+
+\section*{3.1-6}
+Prove that the running time of an algorithm is $\Theta(g(n))$ if and only if its worst-case running time is  $O(g(n))$ and its best-case running time is  $\Omega(g(n))$
+
+From Theorem 3.1
+
+\section*{3.1-7}
+Prove that $o(g(n)) \cap \omega(g(n))$ is the empty set.
+
+\[ f(n) = o(g(n)) : c*g(n) >f(n) \] , there is no c that $c*g(n) \le f(n)$
+\[ f(n) = \omega(g(n)) : c*g(n) < f(n) \], there is no c that $c*g(n) \ge f(n)$ 
+
+Contradiction.
+
+\section*{3.1-8}
+
+We can extend out notation to the case of two parameters $n$ and $m$ that can go to infinity independently at different rates. For a given function $g(n,m)$, we denote by $O(g(n,m))$ the set of functions
+
+
+\[ O(g(n,m)) = 
+\begin{cases}
+       \text{f(n,m),} &\quad\text{there exist positive c, $n_0$, and $m_0$ such that $0 \le f(n,m)  \le cg(n,m)$ for all $n \ge n_0$ or $m \ge m_0$}\\
+     \end{cases}
+\]
+
+Give corresponding difenition for $\Omega(g(m,n))$ and  $\Theta(g(m,n))$ 
+
+\[ \Omega(g(n,m)) = 
+\begin{cases}
+       \text{f(n,m),} &\quad\text{there exist positive c, $n_0$, and $m_0$ such that $cg(n,m) \le f(n,m) $ for all $n \ge n_0$ or $m \ge m_0$}\\
+     \end{cases}
+\]
+
+
+\[ \Theta(g(n,m)) = 
+\begin{cases}
+       \text{f(n,m),} &\quad\text{there exist positive c, $n_0$, and $m_0$ such that $c_1g(n,m) \le f(n,m) \le c_2g(n,m) $ for all $n \ge n_0$ or $m \ge m_0$}\\
+     \end{cases}
+\]
+\end{document}
